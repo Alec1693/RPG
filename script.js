@@ -100,12 +100,34 @@ function buyHealth() {
 }
 
 function buyWeapon() {
-    if (gold >= 30) {
-        gold -= 30;
-        currentWeapon += 1;
-        let newWeapon = weapons[currentWeapon].name;
-        text.innerHTML = "You now have a " + newWeapon + ".";
-        inventory.push(newWeapon);
+    if (currentWeapon < weapons.length - 1)
+    {
+        if (gold >= 30) { 
+            gold -= 30;
+            currentWeapon++; 
+            let newWeapon = weapons[currentWeapon].name;
+            text.innerHTML = "You now have a " + newWeapon + ".";
+            inventory.push(newWeapon);
+            text.innerHTML += " In your inventory you have: " + inventory;
+        } else {
+            text.innerHTML = "You do not have enough gold to buy a weapon.";
+        }
+    } else {
+        text.innerHTML = "You already have the most powerful weapon!";
+        button2.innerHTML = "Sell weapon for 15 gold";
+        button2.onclick = sellWeapon;
+    }
+}
+
+function sellWeapon() {
+    if (inventory.length > 1) {
+        gold += 15;
+        goldText.innerHTML = gold;
+        let currentWeapon = inventory.shift();
+        text.innerHTML = "You sold a " + currentWeapon + ".";
+        text.innerHTML += " In your inventory you have: " + inventory;
+    } else {
+        text.innerHTML = "Don't sell your only weapon!"
     }
 }
 
