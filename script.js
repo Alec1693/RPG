@@ -14,8 +14,8 @@ const xpText = document.querySelector("#xpText");
 const healthText = document.querySelector("#healthText");
 const goldText = document.querySelector("#goldText");
 const monsterStats = document.querySelector("#monsterStats");
-const monsterNameText = document.querySelector("#monsterNameText");
-const monsterHealthText = document.querySelector("#monsterHealthText");
+const monsterNameText = document.querySelector("#monsterName");
+const monsterHealthText = document.querySelector("#monsterHealth");
 
 const weapons = [
     {
@@ -87,7 +87,7 @@ const locations = [
     },
     {
         name: "lose",
-        "button text": ["Replay", "Replay", "Replay"],
+        "button text": ["Replay?", "Replay?", "Replay?"],
         "button functions": [restart, restart, restart],
         text: 'You die.' 
     },
@@ -144,10 +144,11 @@ function buyWeapon() {
         if (gold >= 30) { 
             gold -= 30;
             currentWeapon++; 
+            goldText.innerHTML = gold;
             let newWeapon = weapons[currentWeapon].name;
             text.innerHTML = "You now have a " + newWeapon + ".";
             inventory.push(newWeapon);
-            text.innerHTML += " In your inventory you have: " + " " + inventory;
+            text.innerHTML += " In your inventory you have: " + inventory;
         } else {
             text.innerHTML = "You do not have enough gold to buy a weapon.";
         }
@@ -189,13 +190,13 @@ function goFight() {
     update(locations[3]);
     monsterHealth = monsters[fighting].health;
     monsterStats.style.display = "block";
-    monsterNameText.innerText = monsters[fighting].name;
-    monsterHealthText.innerText = monsterHealth;
+    monsterNameText.innerHTML = monsters[fighting].name;
+    monsterHealthText.innerHTML = monsterHealth;
 }
 
 function attack() {
     text.innerHTML = "The " + monsters[fighting].name + " attacks.";
-    text.innerHTML += " You attack it with yuor " + weapons[currentWeapon].name + ".";
+    text.innerHTML += " You attack it with your " + weapons[currentWeapon].name + ".";
     health -= monsters[fighting].level;
     monsterHealth -= weapons[currentWeapon].power + Math.floor(Math.random() * xp) + 1;
     healthText.innerHTML = health;
